@@ -13,10 +13,8 @@ const Signup = () => {
   const [coverImage , setCoverImage] = useState(null);
 
   const handleAvatarChange = (e) => {
-    console.log("here1" )
 
     e.preventDefault();
-    console.log("here2" )
 
     console.log("avatar" ,e.target.files[0] )
 
@@ -24,10 +22,8 @@ const Signup = () => {
 
   }
   const handleCoverImageChange = (e) => {
-    console.log("here3" )
 
     e.preventDefault();
-    console.log("here4" )
 
     console.log("coverImage" ,e.target.files[0] )
     setCoverImage(e.target.files[0])

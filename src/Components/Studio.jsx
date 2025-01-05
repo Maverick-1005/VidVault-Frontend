@@ -37,7 +37,9 @@ function Studio() {
         formData.append("thumbnail" , thumbnail)
 
 
-        axios.post("http://localhost:8000/api/v1/video/video-upload" , formData)
+        axios.post("http://localhost:8000/api/v1/video/video-upload" , formData , {
+            withCredentials: true,
+        })
         .then((res) => {
           console.log(res.data.message);
         //   navigate("/home")

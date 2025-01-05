@@ -48,7 +48,9 @@ const Signup = () => {
     if(coverImage){
       formData.append("coverImage", coverImage);
     }
-    axios.post("http://localhost:8000/api/v1/users/register" , formData)
+    axios.post("http://localhost:8000/api/v1/users/register" , formData , {
+      withCredentials: true
+    })
     .then((res) => {
       console.log(res.data.message);
       navigate("/home")

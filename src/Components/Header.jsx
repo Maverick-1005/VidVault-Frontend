@@ -1,9 +1,12 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
-
+  const navigate = useNavigate();
   const Logout = ()=>{
      
+  }
+  const handleOnClickCreate = (e) => {
+    navigate('/studio');
   }
   return (
     <header className="bg-black px-4 py-2 flex items-center justify-between ">
@@ -39,7 +42,7 @@ const Header = () => {
 
       {/* Right Section */}
       <div className="flex items-center space-x-4">
-        <button className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+        <button onClick={handleOnClickCreate} className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
           + Create
         </button>
         <button className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">

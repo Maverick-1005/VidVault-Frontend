@@ -28,11 +28,16 @@ const [open, setOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/v1/users/login' , credentials)
+    axios.post('http://localhost:8000/api/v1/users/login', credentials, {
+      withCredentials: true, // This should be here
+    })
+    
     .then((res) => {
-      console.log("nav2")
-       console.log(res.data.message)
-       setMessage(res.data.message)
+      // const authToken = res.cookie.accessToken
+      // const refreshToken = res.cookie.refreshToken
+      // localStorage.setItem('authToken', authToken);
+      // console.log("auth token = " , authToken)
+      // localStorage.setItem('refreshToken', refreshToken);
        setOpen(true)
        navigate('/home');
     })
@@ -41,7 +46,7 @@ const [open, setOpen] = useState(false);
        setMessage(err.message)
        setOpen(true)
     })
-    console.log('Login attempted with:', credentials);
+    console.log('Login attempted with:',credentials);
   };
 
   return (

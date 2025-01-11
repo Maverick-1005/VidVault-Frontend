@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Home,
   ThumbsUp,
@@ -9,7 +10,8 @@ import {
   Settings,
   HelpCircle,
   Video,
-  Menu
+  Menu,
+  X,
 } from 'lucide-react';
 
 const mainMenuItems = [
@@ -43,69 +45,135 @@ const MenuItemComponent = ({ icon: Icon, label, isCollapsed, isActive, onClick }
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
+  const loginStatus = useSelector((state) => state.auth.status);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const toggleMobileSidebar = () => {
+    setIsMobileOpen(!isMobileOpen);
+  };
+
+  if (!loginStatus) {
+    return <div className="bg-white">Login</div>;
+  }
+
   return (
-    <div
-      className={`
-        relative h-screen bg-black transition-all duration-300 
-        ${isCollapsed ? 'w-16' : 'w-64'}
-      `}
-    >
-      {/* Collapse Toggle Button */}
-      <button
-        onClick={toggleSidebar}
-        className="absolute -right-3 top-4 bg-gray-800 p-1 rounded-full"
+    <>
+      {/* Sidebar for larger screens */}
+      <div
+        className={`
+          hidden md:flex flex-col h-screen bg-black transition-all duration-300 
+          ${isCollapsed ? 'w-16' : 'w-64'}
+        `}
       >
-        <Menu size={16} className="text-gray-300" />
-      </button>
+        {/* Collapse Toggle Button */}
+        <button
+          onClick={toggleSidebar}
+          className="absolute -right-3 top-4 bg-gray-800 p-1 rounded-full"
+        >
+          <Menu size={16} className="text-gray-300" />
+        </button>
 
-      {/* Main Navigation */}
-      <div className="flex flex-col h-full">
-        {/* Logo/Brand Area */}
-        <div className="p-4 mb-4">
-          <div className="flex items-center justify-center">
-            <span className={`text-white font-bold ${isCollapsed ? 'hidden' : 'block'}`}>
-              LOGO
-            </span>
+        {/* Main Navigation */}
+        <div className="flex flex-col h-full">
+          {/* Logo/Brand Area */}
+          <div className="p-4 mb-4">
+            <div className="flex items-center justify-center">
+              <span className={`text-white font-bold ${isCollapsed ? 'hidden' : 'block'}`}>
+                LOGO
+              </span>
+            </div>
           </div>
-        </div>
 
-        {/* Main Menu Items */}
-        <nav className="flex-1 px-2">
-          <div className="space-y-1">
-            {mainMenuItems.map((item) => (
-              <MenuItemComponent
-                key={item.label}
-                {...item}
-                isCollapsed={isCollapsed}
-                isActive={activeItem === item.label}
-                onClick={() => setActiveItem(item.label)}
-              />
-            ))}
-          </div>
-        </nav>
+          {/* Main Menu Items */}
+          <nav className="flex-1 px-2">
+            <div className="space-y-1">
+              {mainMenuItems.map((item) => (
+                <MenuItemComponent
+                  key={item.label}
+                  {...item}
+                  isCollapsed={isCollapsed}
+                  isActive={activeItem === item.label}
+                  onClick={() => setActiveItem(item.label)}
+                />
+              ))}
+            </div>
+          </nav>
 
-        {/* Bottom Menu Items */}
-        <div className="border-t border-gray-800 p-2 mt-auto">
-          <div className="space-y-1">
-            {bottomMenuItems.map((item) => (
-              <MenuItemComponent
-                key={item.label}
-                {...item}
-                isCollapsed={isCollapsed}
-                isActive={activeItem === item.label}
-                onClick={() => setActiveItem(item.label)}
-              />
-            ))}
+          {/* Bottom Menu Items */}
+          <div className="border-t border-gray-800 p-2 mt-auto">
+            <div className="space-y-1">
+              {bottomMenuItems.map((item) => (
+                <MenuItemComponent
+                  key={item.label}
+                  {...item}
+                  isCollapsed={isCollapsed}
+                  isActive={activeItem === item.label}
+                  onClick={() => setActiveItem(item.label)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Sidebar for smaller screens */}
+      <div className="md:hidden">
+        <button
+          onClick={toggleMobileSidebar}
+          className="bg-gray-800 p-2 text-white fixed top-4 left-4 rounded-full z-50"
+        >
+          {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
+        {isMobileOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-90 z-40 flex flex-col w-64"
+          >
+            <div className="p-4">
+              <button
+                onClick={toggleMobileSidebar}
+                className="text-white text-xl"
+              >
+                Close
+              </button>
+            </div>
+            <div className="flex-1 px-4">
+              {mainMenuItems.map((item) => (
+                <MenuItemComponent
+                  key={item.label}
+                  {...item}
+                  isCollapsed={false}
+                  isActive={activeItem === item.label}
+                  onClick={() => {
+                    setActiveItem(item.label);
+                    setIsMobileOpen(false);
+                  }}
+                />
+              ))}
+            </div>
+            <div className="border-t border-gray-800 p-4">
+              {bottomMenuItems.map((item) => (
+                <MenuItemComponent
+                  key={item.label}
+                  {...item}
+                  isCollapsed={false}
+                  isActive={activeItem === item.label}
+                  onClick={() => {
+                    setActiveItem(item.label);
+                    setIsMobileOpen(false);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

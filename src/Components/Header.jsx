@@ -1,17 +1,63 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../Redux/authSlice';
 const Header = () => {
   const navigate = useNavigate();
-  const Logout = ()=>{
-     
+  const dispatch = useDispatch();
+
+  const [avatar, setAvatar] = useState("")
+  const [loggedInUser, setLoggedInUser] = useState({})
+  const currentUser = () => {
+    axios.get('http://localhost:8000/api/v1/users/current-user', {
+      withCredentials: true
+    })
+      .then((res) => {
+        const user = res.data.data;
+        setLoggedInUser(user)
+        setAvatar(user.avatar)
+      })
+      .catch((err) => {
+         console.log("ERROR WHILE SHOWING AVATAR ON HOME ", err);
+      })
   }
+
+  useEffect(() => {
+    currentUser()
+  }, [])
+
   const handleOnClickCreate = (e) => {
     navigate('/studio');
   }
+ 
+  const handleLogout = (e) => { 
+    e.preventDefault();
+    axios.get('http://localhost:8000/api/v1/users/logout' , {
+      withCredentials: true,
+    })
+    .then((res) => {
+      dispatch(logout());
+      navigate('/');
+    })
+    .catch((err) => {
+      console.log("Error occoured while logout " , err)
+    })
+  }
+  
+
+  const handleClick = () => {
+    const currState = localStorage.getItem("toggleSideBar")
+    const newState = currentState === "true" ? "false" : "true";
+
+    localStorage.setItem("toggleSideBar", newState);
+  }
+
   return (
     <header className="bg-black px-4 py-2 flex items-center justify-between ">
       {/* Left Section */}
       <div className="flex items-center">
+        <button onClick={handleClick} className='text-white'>  ===</button>
         <div className="text-white text-xl font-bold">VidVault</div>
       </div>
 
@@ -45,7 +91,7 @@ const Header = () => {
         <button onClick={handleOnClickCreate} className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
           + Create
         </button>
-        <button className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+        <button onClick={handleLogout} className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
           LogOut
         </button>
         <button className="text-white relative">
@@ -66,10 +112,10 @@ const Header = () => {
           <span className="absolute top-0 right-0 bg-red-600 text-xs text-white rounded-full px-1">4</span>
         </button>
         <button className="w-10 h-10 bg-gray-600 rounded-full overflow-hidden">
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Profile"
-            className="w-full h-full object-cover"
+        <img
+            src={avatar}
+            alt="Image"
+            className="w-10 h-10 rounded-full object-cover"
           />
         </button>
       </div>

@@ -1,10 +1,10 @@
 import React , {useState} from 'react'
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 
 
 function Studio() {
-
+    const navigate = useNavigate()
     const [videoData, setVideoData] = useState({
         title: '',
         description: '',
@@ -42,7 +42,7 @@ function Studio() {
         })
         .then((res) => {
           console.log(res.data.message);
-        //   navigate("/home")
+          navigate("/home")
     
         })
         .catch((err) => {
@@ -57,7 +57,7 @@ function Studio() {
                 {/* Logo and Title */}
                 <div className="text-center">
                     <h1 className="text-4xl font-bold text-white mb-2">VidVault</h1>
-                    <p className="text-gray-400">Create your Account</p>
+                    <p className="text-gray-400">UPLOAD VIDEO</p>
                 </div>
 
                 {/* Signup Form */}

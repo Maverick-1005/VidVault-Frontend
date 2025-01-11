@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const VideoCard = ({video}) => {
+  const navigate = useNavigate();
   const thumbnail = video.thumbnail
   const title = video.title
   const id = video.owner
   const [user , setUser] = useState({})
+  const dispatch = useDispatch();
+
+  const handleId = () => {
+    // localStorage.setItem("currentVideoId" , video._id)
+    navigate(`/videos/${video._id}`);
+  }
  const request = () => {
-  axios.post('http://localhost:8000/api/v1/users/id' , {
-    id
-  },{
+  axios.get(`http://localhost:8000/api/v1/users/${id}` ,{
     withCredentials: true,
   })
   .then((res) => {
@@ -21,7 +28,6 @@ const VideoCard = ({video}) => {
  }
  useEffect(() => {
    request()
-    
  }, [])
 
 
@@ -34,7 +40,7 @@ const VideoCard = ({video}) => {
   
   // const duration = video.duration,
   return (
-    <div className=" w-11/12 h-80 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
+    <div onClick={() => handleId()} className="cursor-pointer w-11/12 h-80 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
       {/* Thumbnail Section */}
       <div className="">
         <img src={thumbnail} alt="Video Thumbnail" className="w-full h-[200px] object-fill" />

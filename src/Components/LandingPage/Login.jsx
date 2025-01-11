@@ -1,14 +1,16 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import Message from './Message';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import useAuth from '../Context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import {login } from '../../Redux/authSlice.js'
+import { store  } from '../../Redux/store.js';
 
 
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 console.log("nav1")
 const [open, setOpen] = useState(false);
   const [message , setMessage] = useState('');
@@ -18,7 +20,10 @@ const [open, setOpen] = useState(false);
     password: '',
     email: ''
   });
+      // const {status} = useSelector((state) => state.auth);
 
+
+  
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -39,6 +44,8 @@ const [open, setOpen] = useState(false);
       // console.log("auth token = " , authToken)
       // localStorage.setItem('refreshToken', refreshToken);
        setOpen(true)
+       dispatch(login())
+      //  console.log("Login status = ", status)
        navigate('/home');
     })
     .catch((err) => {
@@ -48,7 +55,10 @@ const [open, setOpen] = useState(false);
     })
     console.log('Login attempted with:',credentials);
   };
-
+//   useEffect(() => {
+//     // setIsAuth(status)
+// console.log("in useeffect",status)
+//   }, [dispatch,open])
   return (
     <>
       <div className="max-w-md w-full space-y-8">

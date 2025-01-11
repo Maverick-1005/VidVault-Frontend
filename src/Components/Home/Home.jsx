@@ -1,8 +1,7 @@
 import React from 'react'
-import Header from './Header.jsx'
-import SideBar from "./SideBar.jsx"
-import VideoGrid from './VideoGrid.jsx'
-import { AuthProvider } from '../Context/AuthContext.js'
+import Header from '../Header.jsx'
+import SideBar from "../SideBar.jsx"
+import VideoGrid from '../Video/VideoGrid.jsx'
 
 function Home() {
   return (

@@ -43,7 +43,7 @@ const MenuItemComponent = ({ icon: Icon, label, isCollapsed, isActive, onClick }
   </button>
 );
 
-const Sidebar = () => {
+const Sidebar = ({myprop = false}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
@@ -66,8 +66,8 @@ const Sidebar = () => {
       {/* Sidebar for larger screens */}
       <div
         className={`
-          hidden md:flex flex-col h-screen bg-black transition-all duration-300 
-          ${isCollapsed ? 'w-16' : 'w-64'}
+          hidden ${myprop? "" : "md:flex flex-col h-screen bg-black transition-all duration-300 "}
+          ${isCollapsed ? 'w-16' : 'w-64'} 
         `}
       >
         {/* Collapse Toggle Button */}
@@ -122,7 +122,7 @@ const Sidebar = () => {
       </div>
 
       {/* Sidebar for smaller screens */}
-      <div className="md:hidden">
+      <div className={`${myprop? "" : "md:hidden"} `}>
         <button
           onClick={toggleMobileSidebar}
           className="bg-gray-800 p-2 text-white fixed top-4 left-4 rounded-full z-50"

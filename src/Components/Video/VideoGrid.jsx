@@ -7,7 +7,7 @@ function VideoGrid() {
 
 
   const video = () => {
-    axios.get('http://localhost:8000/api/v1/video/video-home' , {
+    axios.get('http://localhost:8000/api/v1/video/allVideos' , {
       params: {
         page: 1,
         limit: 9,
@@ -30,13 +30,15 @@ function VideoGrid() {
   }, [])
  
   return (
-    <div className='bg-black grid grid-cols-3 gap-0  sw-full ml-0 pl-0' >
-        {videos.map((item) => (
-        <div  className='flex items-center justify-center mt-8'> 
-        <VideoCard  key={item._id} video={item} /> 
-        </div>
-        
-      ))}
+    <div>
+   <div className="bg-black grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full ml-0 pl-0">
+  {videos.map((item) => (
+    <div key={item._id} className="flex items-center justify-center mt-8 ">
+      <VideoCard video={item} />
+    </div>
+  ))}
+</div>
+   
     </div>
   )
 }

@@ -66,9 +66,9 @@ const Header = () => {
         <input
           type="text"
           placeholder="Search"
-          className="w-full px-4 py-2 bg-gray-800 text-white rounded-l-full focus:outline-none focus:ring-2 focus:ring-gray-700"
+          className="w-full min-w-40 px-4 py-2 bg-gray-800 text-white rounded-l-full focus:outline-none focus:ring-2 focus:ring-gray-700"
         />
-        <button className="bg-gray-700 px-4 py-2 rounded-r-full text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-700">
+        <button className="bg-gray-700 w-5 sm:10 md:w-20 px-4 py-2 rounded-r-full text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -88,10 +88,10 @@ const Header = () => {
 
       {/* Right Section */}
       <div className="flex items-center space-x-4">
-        <button onClick={handleOnClickCreate} className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+        <button onClick={handleOnClickCreate} className="bg-gray-700 min-w-20 p-0 text-white md:px-4 md:py-2 sm:p-1 rounded-md hover:bg-gray-600">
           + Create
         </button>
-        <button onClick={handleLogout} className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600">
+        <button onClick={handleLogout} className="bg-gray-700 min-w-20  text-white p-0 md:p-4 md:py-2 rounded-md hover:bg-gray-600">
           LogOut
         </button>
         <button className="text-white relative">

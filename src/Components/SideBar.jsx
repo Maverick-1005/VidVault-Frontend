@@ -73,21 +73,21 @@ const Sidebar = () => {
         {/* Collapse Toggle Button */}
         <button
           onClick={toggleSidebar}
-          className="absolute -right-3 top-4 bg-gray-800 p-1 rounded-full"
+          className="relative z-1000 -right-3 w-7 -top-10 bg-gray-800 p-1  rounded-full"
         >
-          <Menu size={16} className="text-gray-300" />
+          <Menu size={20} className="text-gray-300" />
         </button>
 
         {/* Main Navigation */}
         <div className="flex flex-col h-full">
           {/* Logo/Brand Area */}
-          <div className="p-4 mb-4">
+          {/* <div className="p-4 mb-4">
             <div className="flex items-center justify-center">
               <span className={`text-white font-bold ${isCollapsed ? 'hidden' : 'block'}`}>
                 LOGO
               </span>
             </div>
-          </div>
+          </div> */}
 
           {/* Main Menu Items */}
           <nav className="flex-1 px-2">

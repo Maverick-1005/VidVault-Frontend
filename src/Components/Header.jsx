@@ -57,8 +57,8 @@ const Header = () => {
     <header className="bg-black px-4 py-2 flex items-center justify-between ">
       {/* Left Section */}
       <div className="flex items-center">
-        <button onClick={handleClick} className='text-white'>  ===</button>
-        <div className="text-white text-xl font-bold">VidVault</div>
+        {/* <button onClick={handleClick} className='text-white'>  ===</button> */}
+        <div className="text-white text-xl ml-10 font-bold">VidVault</div>
       </div>
 
       {/* Center Section (Search Bar) */}

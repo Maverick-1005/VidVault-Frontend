@@ -139,7 +139,7 @@ const Sidebar = ({myprop = false}) => {
                 onClick={toggleMobileSidebar}
                 className="text-white text-xl"
               >
-                Close
+                
               </button>
             </div>
             <div className="flex-1 px-4">

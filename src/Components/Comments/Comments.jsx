@@ -1,11 +1,16 @@
 import axios from 'axios'
 import React, { useEffect , useState } from 'react'
 import CommentCard from './CommentCard.jsx'
+import CommentsHeader from './CommentsHeader.jsx'
+import { useParams } from 'react-router-dom'
 
-function Comments({videoId}) {
+function Comments({currUser}) {
 
  const [comments, setComments] = useState([])
  const [user , setUser] = useState({})
+
+ const params = useParams()
+ const videoId = params.videoId
 
  const fetchAllComments = async () => {
     await axios.get('http://localhost:8000/api/v1/comments/allcomments' , {
@@ -16,12 +21,8 @@ function Comments({videoId}) {
         }
     })
     .then((res) => {
-      //  setComments(res.data.data)
-      //  console.log("HELLO " , comments)
-      //  console.log("res =  " , res.data)
-
-       const allComments = res.data.data ;
-
+      
+     const allComments = res.data.data ;
      const commentsWithUserData = allComments.map((item) => {
        return axios.get(`http://localhost:8000/api/v1/users/${item.owner}` , {
           withCredentials: true
@@ -52,14 +53,16 @@ function Comments({videoId}) {
 
  useEffect(() => {
    fetchAllComments()
- }, [videoId])
+ }, [videoId , comments])
 
 
  
 
 
   return (
-    <div>
+    <div className='m-2 max-w-5xl'>
+       <CommentsHeader userAvatar = {currUser.avatar} commentsCount={comments.length}/>
+          <div>
       {comments.map((item) => (
         <div key={item._id}>
           <CommentCard
@@ -71,6 +74,8 @@ function Comments({videoId}) {
         </div>
       ))}
     </div>
+    </div>
+
   
   )
 }

@@ -58,7 +58,13 @@ const Header = () => {
       {/* Left Section */}
       <div className="flex items-center">
         {/* <button onClick={handleClick} className='text-white'>  ===</button> */}
-        <div className="text-white text-xl ml-10 font-bold">VidVault</div>
+        <button 
+        onClick = {(e) => {
+          navigate('/home')
+        }}
+        className="text-white text-xl ml-10 font-bold">
+          VidVault
+          </button>
       </div>
 
       {/* Center Section (Search Bar) */}

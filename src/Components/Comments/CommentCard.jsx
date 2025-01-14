@@ -1,12 +1,13 @@
 import React from "react";
+import { getTimeDifference } from "../../utils/utilFunctions";
 
 const CommentCard = ({content , username , userAvatar ,likeCount=0 , time}) => {
+    const timeAgo = getTimeDifference(time)
+  
   return (
     <div className=" bg-black  text-white p-4 rounded-md w-full">
       <div className="flex bg-black items-center mb-2 w-full">
-        {/* Profile Picture */}
         <div className="h-10 w-10 mb-3rounded-full overflow-hidden flex-shrink-0">
-          {/* Placeholder for image */}
           <img
             src={userAvatar}
             alt="Profile"
@@ -16,10 +17,9 @@ const CommentCard = ({content , username , userAvatar ,likeCount=0 , time}) => {
        <div className=" ml-3 w-full">
        <div className=" mt-2 flex bg-black ">
           <p className="text-sm font-semibold">@{username}</p>
-          <p className="text-xs text-gray-400 ml-2 mt-1">{time}</p>
+          <p className="text-xs text-gray-400 ml-2 mt-1">{timeAgo}</p>
         </div>
 
-         {/* Comment Content */}
       <div className="bg-black pt-2 flex">
       <p className="text-sm mb-4">
         <span className="ml-3">{content}</span>

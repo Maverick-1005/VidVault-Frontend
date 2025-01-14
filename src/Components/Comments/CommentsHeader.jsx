@@ -1,17 +1,48 @@
+import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 function CommentsHeader({ commentsCount=0, userAvatar }) {
+      
+    const params = useParams()
+    const [comment, setComment] = useState("")
 
-    const handleSubmit = (e) => {
+   
+    const videoId = params.videoId
 
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+       await axios.post(`http://localhost:8000/api/v1/comments/add-comment/${videoId}` , {
+            text: comment
+        } , {
+            params: {
+                videoId: videoId
+            },
+            withCredentials: true
+        })
+        .then((res) => {
+          console.log("Comment added !")
+          setComment('')
+        })
+        .catch((err) => {
+            console.log("Error while adding comment")
+        })
     }
 
-    const [comment, setComment] = useState("")
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault(); 
+            handleSubmit(e);
+        }
+    };
+
+
     return (
         <div>
-            <div className='flex mt-6 '>
-                <div>
+            <div className='flex mt-6'>
+                <div className='ml-3'>
                 <h2 className='text-white flex justify-start ml-3'>{commentsCount} Comments</h2>
                 </div>
                 <div>
@@ -24,14 +55,15 @@ function CommentsHeader({ commentsCount=0, userAvatar }) {
                 <div className='w-10 ml-5 mb-1 h-10 rounded-full '>
                     <img src={userAvatar} alt = "image" className='w-10 h-10 rounded-full flex justify-start' />
                 </div>
-                <div className='w-full mr-8'>
+                <div className='w-full mr-8 border-0'>
                     <input 
                     type='text' 
                     value={comment} 
                     onChange={(e) => {
                       setComment(e.target.value)
                     }} 
-                    className='text-white bg-black ml-5  w-full' placeholder='Add a comment....'/>
+                    onKeyDown={handleKeyPress}
+                    className='text-white bg-black ml-5 border-0  w-full' placeholder='Add a comment....'/>
                 </div>
                  </div>
 

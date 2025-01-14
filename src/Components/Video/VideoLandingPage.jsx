@@ -5,6 +5,7 @@ import Header from '../Header.jsx'
 import SideBar from '../SideBar.jsx'
 import VideoPlayer from './VideoPlayer.jsx'
 import VideoAlley from './VideoAlley.jsx'
+import Comments from '../Comments/Comments.jsx'
 function VideoLandingPage() {
 
       const [videoFile, setVideoFile] = useState({});
@@ -30,7 +31,7 @@ function VideoLandingPage() {
   
       useEffect(() => {
           videoDetails();
-      }, []);
+      }, [videoId]);
   
       const getVideoOwner = () => {
           axios.get(`http://localhost:8000/api/v1/users/${videoFile.owner}`, {
@@ -72,8 +73,10 @@ function VideoLandingPage() {
       <div className='grid grid-cols-1 lg:grid-cols-[auto,minmax(0,1fr),auto] gap-0'> 
         <SideBar myprop={true} />
         < VideoPlayer videoId={videoId} videoFile={videoFile} user={user} currUser={currUser} />
-        <VideoAlley videoOwner={videoFile.owner} username = {user.username}/>
+        <VideoAlley videoOwner={videoFile.owner} username = {user.username} videoId = {videoId}/>
       </div>
+      <Comments currUser={currUser} />
+
       </div>
    
     </>

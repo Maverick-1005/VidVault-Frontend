@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getTimeDifference } from "../../utils/utilFunctions";
 const VideoCard = ({video}) => {
   const navigate = useNavigate();
   const thumbnail = video.thumbnail
@@ -30,13 +31,14 @@ const VideoCard = ({video}) => {
    request()
  }, [])
 
+ 
 
  
 
   const userAvatar = user.avatar
   const username = user.username
   const views = video.views
-  const timeAgo = video.createdAt
+  const timeAgo = getTimeDifference(video.createdAt)
   
   // const duration = video.duration,
   return (

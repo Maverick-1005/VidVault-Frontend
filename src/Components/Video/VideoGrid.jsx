@@ -15,12 +15,12 @@ function VideoGrid() {
       withCredentials: true,
     })
     .then((res) => {
-     console.log("Videos aagye frontend" , res.data)
-     console.log("ye raha data" , res.data.data)
+    //  console.log("Videos aagye frontend" , res.data)
+    //  console.log("ye raha data" , res.data.data)
      setVideos(res.data.data)
     })
     .catch((err)=> {
-      console.log("videos nahi aae" , err)
+      // console.log("videos nahi aae" , err)
     })
 
   }

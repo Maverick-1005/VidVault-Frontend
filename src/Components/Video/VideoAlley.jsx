@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import VideoCard2 from './VideoCard2';
 import axios from 'axios';
 
-function VideoAlley({videoOwner , username}) {
+function VideoAlley({videoOwner , username , videoId = {videoId}}) {
 
   const [videos, setVideos] = useState([])  
   console.log("videoOwner = " , videoOwner)
@@ -12,6 +12,7 @@ function VideoAlley({videoOwner , username}) {
           page: 1,
           limit: 8,
           owner: videoOwner,
+          videoId: videoId
         }
       } )
       .then((res) => {
@@ -25,7 +26,7 @@ function VideoAlley({videoOwner , username}) {
   }
   useEffect(() => {
     fetchOwnersVideos()
-  }, [videoOwner])
+  }, [videoOwner , videoId])
   
   return (
     <div className=' w-full  p-4 rounded-md'>

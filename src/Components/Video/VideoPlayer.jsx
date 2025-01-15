@@ -19,7 +19,7 @@ function VideoPlayer({videoFile , videoId , user , currUser}) {
                 controls
             />
             <VideoTitleCard videoTitle={videoFile.title} />
-            <VideoChannelCard channelName={user.username} channelAvatar={user.avatar} />
+            <VideoChannelCard channelName={user.username} channel={user} channelAvatar={user.avatar} />
             <VideoDescriptionCard views={videoFile.views} description={videoFile.description} time={videoFile.createdAt} />
             {/* <CommentsHeader userAvatar={currUser.avatar} /> */}
             {console.log("Video Id 2 => ", videoId)}

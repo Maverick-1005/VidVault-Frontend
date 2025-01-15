@@ -1,6 +1,6 @@
 import React from "react";
 
-const VideoChannelCard = ({ channelName, channelAvatar ,subscriberCount = "0", likeCount = "0" }) => {
+const VideoChannelCard = ({ channelName, channelAvatar , channel ,subscriberCount = "0", likeCount = "0" }) => {
   return (
     <div className="flex items-center justify-between bg-black text-white p-4  shadow-md">
       {/* Left Section: Channel Info */}

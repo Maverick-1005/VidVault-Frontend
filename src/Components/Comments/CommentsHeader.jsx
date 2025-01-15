@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-function CommentsHeader({ commentsCount=0, userAvatar }) {
+function CommentsHeader({ commentsCount=0, userAvatar , onCommentAdded }) {
       
     const params = useParams()
     const [comment, setComment] = useState("")
@@ -25,6 +25,9 @@ function CommentsHeader({ commentsCount=0, userAvatar }) {
         .then((res) => {
           console.log("Comment added !")
           setComment('')
+          if(onCommentAdded){
+            onCommentAdded()
+          }
         })
         .catch((err) => {
             console.log("Error while adding comment")
@@ -38,6 +41,7 @@ function CommentsHeader({ commentsCount=0, userAvatar }) {
         }
     };
 
+   
 
     return (
         <div>

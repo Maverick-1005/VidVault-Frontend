@@ -14,15 +14,16 @@ function VideoLandingPage() {
   
       const params = useParams();
       const videoId = params.videoId;
+
   
-      const videoDetails = () => {
+      const videoDetails = async () => {
           console.log("Video Id ANdar = ", videoId);
-          axios.get(`http://localhost:8000/api/v1/video/v/${videoId}`, {
+          await axios.get(`http://localhost:8000/api/v1/video/v/${videoId}`, {
               withCredentials: true
           })
           .then((res) => {
               setVideoFile(res.data.data);
-              // console.log("" ,res.data.data )
+              console.log("" ,res.data.data )
           })
           .catch((err) => {
               console.log("error while playing video" , err);
@@ -30,9 +31,10 @@ function VideoLandingPage() {
       }
   
       useEffect(() => {
+        console.log("Videoid ye rhi" , videoId)
+
           videoDetails();
       }, [videoId]);
-  
       const getVideoOwner = () => {
           axios.get(`http://localhost:8000/api/v1/users/${videoFile.owner}`, {
               withCredentials: true

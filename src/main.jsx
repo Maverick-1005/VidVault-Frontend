@@ -13,6 +13,10 @@ import Studio from './Components/Studio/Studio.jsx'
 import VideoLandingPage from './Components/Video/VideoLandingPage.jsx'
 import { store } from './Redux/store.js'
 import { Provider } from 'react-redux'
+import ChannelLandingPage from './Components/Channel/ChannelLandingPage.jsx'
+import ChannelVideoGrid from './Components/Channel/ChannelVideoGrid.jsx'
+import ChannelPlaylists from './Components/Channel/ChannelPlaylists.jsx'
+import ChannelCommunity from './Components/Channel/ChannelCommunity.jsx'
 
 const router = createBrowserRouter([
   {
@@ -42,6 +46,24 @@ const router = createBrowserRouter([
     {
       path: "/videos/:videoId",
       element: <VideoLandingPage/>
+    },
+    {
+      path: "/channel/:username/:userId/",
+      element: <ChannelLandingPage/>,
+      children: [
+        {
+          path: "videos",
+          element: <ChannelVideoGrid/>
+        },
+        {
+          path: "playlists",
+         element: <ChannelPlaylists/>
+        },
+        {
+          path: "community",
+         element: <ChannelCommunity/>
+        }
+      ]
     }
     ]
   }

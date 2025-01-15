@@ -26,7 +26,6 @@ function VideoGrid() {
   }
   useEffect(() => {
     video();
-
   }, [])
  
   return (

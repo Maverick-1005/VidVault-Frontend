@@ -3,16 +3,16 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getTimeDifference } from "../../utils/utilFunctions";
-const VideoCard = ({video}) => {
+const VideoCard = ({video , hidden= false}) => {
+
+
   const navigate = useNavigate();
   const thumbnail = video.thumbnail
   const title = video.title
   const id = video.owner
   const [user , setUser] = useState({})
-  const dispatch = useDispatch();
 
   const handleId = () => {
-    // localStorage.setItem("currentVideoId" , video._id)
     navigate(`/videos/${video._id}`);
   }
  const request = () => {
@@ -27,9 +27,10 @@ const VideoCard = ({video}) => {
     console.log("User data nahi aarha" , err)
   })
  }
+ 
  useEffect(() => {
    request()
- }, [])
+ }, [video])
 
  
 
@@ -44,7 +45,7 @@ const VideoCard = ({video}) => {
   return (
     <div onClick={() => handleId()} className="cursor-pointer w-11/12 h-80 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
       {/* Thumbnail Section */}
-      <div className="">
+      <div className="relative">
         <img src={thumbnail} alt="Video Thumbnail" className="w-full h-[200px] object-fill" />
         <span className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-xs text-white py-1 px-2 rounded">
           {/* {duration} */}
@@ -54,14 +55,17 @@ const VideoCard = ({video}) => {
       {/* Video Info Section */}
       <div className="p-4">
         <h3 className="text-lg font-bold mb-2">{title}</h3>
-        <div className="flex items-center space-x-3">
+        <div className={"flex items-center space-x-3"}>
           <img
             src={userAvatar}
             alt="Image"
-            className="w-10 h-10 rounded-full object-cover"
+            className={hidden? "hidden":"w-10 h-10 rounded-full object-cover"}
           />
           <div>
-            <p className="text-sm font-semibold">{username}</p>
+            <button onClick={(e) => {
+              e.stopPropagation()
+              navigate(`../channel/${username}/${user._id}/videos`)
+            }} className={hidden? "hidden":"text-sm font-semibold"}>{username}</button>
             <p className="text-xs text-gray-400">
               {views} views • {timeAgo}
             </p>

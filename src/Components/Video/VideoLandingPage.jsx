@@ -75,7 +75,7 @@ function VideoLandingPage() {
       <div className='grid grid-cols-1 lg:grid-cols-[auto,minmax(0,1fr),auto] gap-0'> 
         <SideBar myprop={true} />
         < VideoPlayer videoId={videoId} videoFile={videoFile} user={user} currUser={currUser} />
-        <VideoAlley videoOwner={videoFile.owner} username = {user.username} videoId = {videoId}/>
+        <VideoAlley videoOwner={videoFile.owner} user = {user} videoId = {videoId}/>
       </div>
       <Comments currUser={currUser} />
 

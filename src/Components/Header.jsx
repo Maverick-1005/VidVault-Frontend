@@ -6,6 +6,8 @@ import { logout } from '../Redux/authSlice';
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  const [searchedText, setSearchedText] = useState("")
 
   const [avatar, setAvatar] = useState("")
   const [loggedInUser, setLoggedInUser] = useState({})
@@ -45,13 +47,15 @@ const Header = () => {
     })
   }
   
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const encodedText = searchedText.replace(/ /g, "+");
+    navigate(`../search/results/?q=${encodedText}`)
 
-  const handleClick = () => {
-    const currState = localStorage.getItem("toggleSideBar")
-    const newState = currentState === "true" ? "false" : "true";
-
-    localStorage.setItem("toggleSideBar", newState);
   }
+
+  
+
 
   return (
     <header className="bg-black px-4 py-2 flex items-center justify-between ">
@@ -69,12 +73,18 @@ const Header = () => {
 
       {/* Center Section (Search Bar) */}
       <div className="flex items-center flex-grow max-w-lg">
-        <input
+        <form onSubmit={handleSearch}>
+          <div className='flex'>
+          <input
           type="text"
           placeholder="Search"
-          className="w-full min-w-40 px-4 py-2 bg-gray-800 text-white rounded-l-full focus:outline-none focus:ring-2 focus:ring-gray-700"
+          value={searchedText}
+          onChange={(e) => {
+            setSearchedText(e.target.value)
+          }}
+          className="w-96 min-w-40 px-4 py-2 bg-gray-800 text-white rounded-l-full focus:outline-none focus:ring-2 focus:ring-gray-700"
         />
-        <button className="bg-gray-700 w-5 sm:10 md:w-20 px-4 py-2 rounded-r-full text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-700">
+        <button type='submit' className="bg-gray-700 w-5 sm:10 md:w-20 px-4 py-2 rounded-r-full text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -90,6 +100,9 @@ const Header = () => {
             />
           </svg>
         </button>
+          </div>
+       
+        </form >
       </div>
 
       {/* Right Section */}

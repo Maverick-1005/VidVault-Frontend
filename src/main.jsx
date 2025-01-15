@@ -17,6 +17,7 @@ import ChannelLandingPage from './Components/Channel/ChannelLandingPage.jsx'
 import ChannelVideoGrid from './Components/Channel/ChannelVideoGrid.jsx'
 import ChannelPlaylists from './Components/Channel/ChannelPlaylists.jsx'
 import ChannelCommunity from './Components/Channel/ChannelCommunity.jsx'
+import Search from './Components/Search/Search.jsx'
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
          element: <ChannelCommunity/>
         }
       ]
+    },
+    {
+      path: "/search/results",
+      element: <Search/>
     }
     ]
   }

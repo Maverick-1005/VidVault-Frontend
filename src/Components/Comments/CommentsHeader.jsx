@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useRef , useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -7,8 +7,23 @@ function CommentsHeader({ commentsCount=0, userAvatar , onCommentAdded }) {
       
     const params = useParams()
     const [comment, setComment] = useState("")
+    const [isWriting, setIsWriting] = useState(false)
+    const writeRef = useRef()
 
    
+     const handleClickOutside = (event) => {
+       if (writeRef.current && !writeRef.current.contains(event.target)) {
+         setIsWriting(false);
+       }
+      
+     };
+   
+     useEffect(() => {
+       document.addEventListener("click", handleClickOutside, true);
+       return () => {
+         document.removeEventListener("click", handleClickOutside, true);
+       };
+     }, []);
     const videoId = params.videoId
 
 
@@ -66,12 +81,13 @@ function CommentsHeader({ commentsCount=0, userAvatar , onCommentAdded }) {
                     onChange={(e) => {
                       setComment(e.target.value)
                     }} 
+                    onClick={() => {setIsWriting(true)}}
                     onKeyDown={handleKeyPress}
                     className='text-white bg-black ml-5 border-0  w-full' placeholder='Add a comment....'/>
                 </div>
                  </div>
 
-                 <div className='flex justify-end'>
+                 { isWriting ? <div ref={writeRef} className='flex justify-end'>
                  <div>
                 <button className='ml-5 text-white' onClick={(e) => {
                     setComment('')
@@ -81,7 +97,7 @@ function CommentsHeader({ commentsCount=0, userAvatar , onCommentAdded }) {
                 <button type='submit' className='ml-5 mr-2 text-white' onClick={handleSubmit}>Comment</button>
                 </div>
 
-                </div>
+                </div> : <></>}
                  </form >
 
 

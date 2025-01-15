@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const VideoChannelCard = ({ channelName, channelAvatar , channel ,subscriberCount = "0", likeCount = "0" }) => {
+
+  const navigate = useNavigate()
   return (
     <div className="flex items-center justify-between bg-black text-white p-4  shadow-md">
       {/* Left Section: Channel Info */}
@@ -14,7 +17,9 @@ const VideoChannelCard = ({ channelName, channelAvatar , channel ,subscriberCoun
           />
         </div>
         <div className="ml-3">
-          <h2 className="font-semibold text-lg">{channelName}</h2>
+          <h2 onClick={(e) => {
+            navigate(`../channel/${channelName}/${channel._id}/videos`)
+          }} className="font-semibold text-lg cursor-pointer">{channelName}</h2>
           <p className="text-sm text-gray-400">{subscriberCount} subscribers</p>
         </div>
       </div>

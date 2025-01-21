@@ -6,6 +6,8 @@ import Alert from '@mui/material/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import {login } from '../../Redux/authSlice.js'
 import { store  } from '../../Redux/store.js';
+import { useGoogleLogin } from '@react-oauth/google';
+
 
 
 const Login = () => {
@@ -20,6 +22,7 @@ const [open, setOpen] = useState(false);
     password: '',
     email: ''
   });
+  
       // const {status} = useSelector((state) => state.auth);
 
 
@@ -38,13 +41,8 @@ const [open, setOpen] = useState(false);
     })
     
     .then((res) => {
-      // const authToken = res.cookie.accessToken
-      // const refreshToken = res.cookie.refreshToken
-      // localStorage.setItem('authToken', authToken);
-      // console.log("auth token = " , authToken)
-      // localStorage.setItem('refreshToken', refreshToken);
        setOpen(true)
-       dispatch(login())
+       dispatch(login(res.data.data))
       //  console.log("Login status = ", status)
        navigate('/home');
     })
@@ -55,10 +53,42 @@ const [open, setOpen] = useState(false);
     })
     console.log('Login attempted with:',credentials);
   };
-//   useEffect(() => {
-//     // setIsAuth(status)
-// console.log("in useeffect",status)
-//   }, [dispatch,open])
+
+  const responseGoogle = async (authResult) => {
+    try {
+      console.log("Obj" ,authResult)
+      if(authResult){
+        console.log("Code" , authResult.code)
+        await axios.get(`http://localhost:8000/api/v1/users/auth/google/?code=${authResult.code}` , {
+          withCredentials: true
+        })
+        .then((res) => {
+          console.log("res via login", res)
+          dispatch(login(res.data?.data))
+
+          if(res.data.data?.accessToken){
+            navigate('../home')
+          }
+          else{
+            console.log("pro")
+            navigate('../profile-setup')
+          }
+        })
+        .catch((err) => {
+          console.log("err while signup with google " , err)
+        })
+      }
+    } catch (error) {
+      console.log("Error while requesting google code" , error)
+    }
+  }
+  const googleLogin = useGoogleLogin(
+    {
+      onSuccess: responseGoogle,
+      onError: responseGoogle,
+      flow: 'auth-code'
+    }
+  )
   return (
     <>
       <div className="max-w-md w-full space-y-8">
@@ -111,14 +141,30 @@ const [open, setOpen] = useState(false);
             </div>
 
             <button
-              type="button"
-              className="w-full flex items-center justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-300 hover:bg-gray-700"
-            >
-              <svg className="w-5 h-5 mr-2" fill="#1877F2" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-              Log in with Facebook
-            </button>
+            onClick={googleLogin}
+  type="button"
+  className="w-full flex items-center justify-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white hover:text-gray-700 hover:bg-gray-100"
+>
+  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+    <path
+      d="M21.805 10.023h-9.76v3.967h5.623c-.22 1.246-.89 2.298-1.86 2.995v2.496h3.006c1.759-1.615 2.78-4.007 2.78-6.707 0-.649-.058-1.28-.165-1.896z"
+      fill="#4285F4"
+    />
+    <path
+      d="M11.673 22c2.43 0 4.469-.806 5.959-2.187l-3.006-2.496c-.834.56-1.901.891-2.953.891-2.27 0-4.192-1.532-4.876-3.593h-3.059v2.25A9.998 9.998 0 0 0 11.673 22z"
+      fill="#34A853"
+    />
+    <path
+      d="M6.797 13.614a6.01 6.01 0 0 1 0-3.228v-2.25H3.738a9.996 9.996 0 0 0 0 7.728l3.059-2.25z"
+      fill="#FBBC05"
+    />
+    <path
+      d="M11.673 5.265c1.328 0 2.518.456 3.453 1.344l2.586-2.586C15.84 2.528 13.801 1.6 11.673 1.6a9.998 9.998 0 0 0-7.935 3.705L6.797 7.55c.684-2.061 2.606-3.593 4.876-3.593z"
+      fill="#EA4335"
+    />
+  </svg>
+  Continue with Google
+</button>
 
             <div className="text-center">
               <a href="#" className="text-sm text-blue-500 hover:text-blue-400">

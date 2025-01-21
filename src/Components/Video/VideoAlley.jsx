@@ -29,7 +29,7 @@ function VideoAlley({videoOwner , user , videoId = {videoId}}) {
   }, [videoOwner , videoId])
   
   return (
-    <div className=' w-full  p-4 rounded-md'>
+    <div className=' w-full lg:max-w-96 p-4 rounded-md'>
      
      {
       videos.map((item) => {

@@ -8,6 +8,7 @@ import { logout , login } from "./Redux/authSlice.js";
 import { useDispatch ,useSelector} from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleOAuthProvider } from '@react-oauth/google'
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,15 +18,16 @@ function App() {
             withCredentials: true, 
           }) ;
           if (response){
-            // console.log("First PAge Loding",response);
-            // console.log("Doing");
-            dispatch(login());
+           console.log("login wala data " , response.data.data)
+            dispatch(login(response.data.data));
+           
           }else{
             console.log("not working");
             dispatch(logout());
           }
         } catch (error) {
           console.log(error);
+          navigate('/')
           dispatch(logout());
         }
       }
@@ -34,7 +36,10 @@ function App() {
       }, [])
       localStorage.setItem("toggleSideBar" , "true")
   return (
-     <Outlet/>
+    <GoogleOAuthProvider clientId= "416500417090-l3pidjc80j3cbrrbh4oqbi8s7fr9i587.apps.googleusercontent.com">
+       <Outlet/>
+    </GoogleOAuthProvider>
+    
   )
 }
 

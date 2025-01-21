@@ -70,13 +70,13 @@ function Comments({ currUser }) {
       <div>
 
         {comments.map((item) => (
-          <div key={item._id}>
+          <div key={item?._id}>
             <CommentCard
               cmt = {item}
-              content={item.content}
-              username={item.user.username}
-              userAvatar={item.user.avatar}
-              time={item.createdAt}
+              content={item?.content}
+              username={item?.user?.username}
+              userAvatar={item?.user?.avatar}
+              time={item?.createdAt}
               currUser = {currUser}
               oncmmtChange={handleOnCommentsChange}
             />

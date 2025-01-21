@@ -4,12 +4,15 @@ const authSlice = createSlice({
     name: "auth",
 
     initialState: {
-      status: false
+      status: false,
+      userData: null
     },
        
     reducers: {
-        login : (state ) => {
+        login : (state , action) => {
            state.status = true;
+           console.log("in sslice ",action)
+           state.userData = action.payload
         },
         logout : (state) => {
            state.status = false;

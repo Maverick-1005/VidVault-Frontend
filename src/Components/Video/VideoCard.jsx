@@ -20,7 +20,7 @@ const VideoCard = ({video , hidden= false}) => {
     withCredentials: true,
   })
   .then((res) => {
-   console.log("User data" , res.data.data)
+  //  console.log("User data" , res.data.data)
    setUser(res.data.data)
   })
   .catch((err)=> {

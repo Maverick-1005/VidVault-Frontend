@@ -4,28 +4,45 @@ import axios from 'axios'
 
 function VideoGrid() {
   const [videos , setVideos] = useState([]);
+  const [page, setPage] = useState(1)
 
-
-  const video = () => {
+  const fetchVideos = () => {
     axios.get('http://localhost:8000/api/v1/video/allVideos' , {
       params: {
-        page: 1,
-        limit: 9,
+        page: page,
+        limit: 12,
       },
       withCredentials: true,
     })
     .then((res) => {
     //  console.log("Videos aagye frontend" , res.data)
     //  console.log("ye raha data" , res.data.data)
-     setVideos(res.data.data)
+     setVideos([...videos ,...res.data.data])
+    //  setVideos(res.data.data)
+    //  setPage((prev) => prev+1)
     })
     .catch((err)=> {
       // console.log("videos nahi aae" , err)
     })
 
   }
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (
+  //       window.innerHeight + document.documentElement.scrollTop >=
+  //       document.documentElement.offsetHeight - 100 // 100px buffer from bottom
+  //     ) {
+  //       setPage((prev) => prev+1)
+  //       fetchVideos();
+  //     }
+  //   };
+
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [fetchVideos]);
+
   useEffect(() => {
-    video();
+    fetchVideos();
   }, [])
  
   return (

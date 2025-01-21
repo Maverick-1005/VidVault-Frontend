@@ -4,6 +4,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
+import {Person} from "@mui/icons-material"
 
 const CommentCard = ({ content, username, userAvatar, likeCount = 0, time, currUser, cmt, oncmmtChange}) => {
 
@@ -79,11 +80,18 @@ const CommentCard = ({ content, username, userAvatar, likeCount = 0, time, currU
     <div className=" bg-black text-white p-4 rounded-md w-full">
       <div className="flex items-center mb-2 w-full relative">
         <div className="h-10 w-10 mb-3rounded-full overflow-hidden flex-shrink-0">
-          <img
+
+          {
+            userAvatar ? <img
             src={userAvatar}
             alt="Profile"
             className="h-10 w-10 rounded-full object-cover"
           />
+          :
+            <Person/>
+
+          }
+          
         </div>
         <div onClick={() => {
           setIsMenuOn(!isMenuOn)
@@ -113,7 +121,9 @@ const CommentCard = ({ content, username, userAvatar, likeCount = 0, time, currU
         </div>
         <div className=" ml-3 w-full">
        <div className=" mt-2 flex bg-black ">
-          <p className="text-sm font-semibold">@{username}</p>
+        {username ? <p className="text-sm font-semibold">@{username}</p>
+ :           <p className="text-sm font-semibold">@Deleted_User</p>
+}
           <p className="text-xs text-gray-400 ml-2 mt-1">{timeAgo}</p>
         </div>
 

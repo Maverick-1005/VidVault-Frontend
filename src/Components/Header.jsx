@@ -1,13 +1,28 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { logout } from '../Redux/authSlice';
+import { ToastContainer , toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams()
+ 
   
   const [searchedText, setSearchedText] = useState("")
+  useEffect(() => {
+    if(searchParams.get('q')){
+      const entext = searchParams.get('q')
+      console.log("entext" , entext)
+      const dectext = entext.replace(/\+/g, " ");
+      setSearchedText(dectext)
+    }
+  }, [searchParams.get('q')])
+  
+  
 
   const [avatar, setAvatar] = useState("")
   const [loggedInUser, setLoggedInUser] = useState({})
@@ -40,7 +55,13 @@ const Header = () => {
     })
     .then((res) => {
       dispatch(logout());
-      navigate('/');
+      toast.success('Logged Out Successfully', {
+                     position: 'top-right', // Use 'top-right' instead of toast.POSITION.TOP_RIGHT
+                   });
+      setTimeout(()=> {
+        navigate('/');
+      } , 1000)
+      
     })
     .catch((err) => {
       console.log("Error occoured while logout " , err)
@@ -58,6 +79,9 @@ const Header = () => {
 
 
   return (
+    <>
+    <ToastContainer/>
+
     <header className="bg-black px-4 py-2 flex items-center justify-between ">
       {/* Left Section */}
       <div className="flex items-center">
@@ -139,6 +163,7 @@ const Header = () => {
         </button>
       </div>
     </header>
+    </>
   );
 };
 

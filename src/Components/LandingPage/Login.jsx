@@ -88,8 +88,8 @@ const [open, setOpen] = useState(false);
       onSuccess: responseGoogle,
       onError: responseGoogle,
       flow: 'auth-code',
-      clientId: "416500417090-l3pidjc80j3cbrrbh4oqbi8s7fr9i587.apps.googleusercontent.com",
-      redirectUri: `${server}/users/auth/google`,
+      // clientId: "416500417090-l3pidjc80j3cbrrbh4oqbi8s7fr9i587.apps.googleusercontent.com",
+      // redirectUri: `${server}/users/auth/google`,
     }
   )
   return (

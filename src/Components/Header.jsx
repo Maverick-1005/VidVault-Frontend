@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { logout } from '../Redux/authSlice';
 import { ToastContainer , toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { server } from '../constant.js';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Header = () => {
   const [avatar, setAvatar] = useState("")
   const [loggedInUser, setLoggedInUser] = useState({})
   const currentUser = () => {
-    axios.get('http://localhost:8000/api/v1/users/current-user', {
+    axios.get(`${server}/users/current-user`, {
       withCredentials: true
     })
       .then((res) => {
@@ -50,7 +51,7 @@ const Header = () => {
  
   const handleLogout = (e) => { 
     e.preventDefault();
-    axios.get('http://localhost:8000/api/v1/users/logout' , {
+    axios.get(`${server}/users/logout` , {
       withCredentials: true,
     })
     .then((res) => {

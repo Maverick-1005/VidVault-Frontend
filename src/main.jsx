@@ -18,7 +18,6 @@ import ChannelVideoGrid from './Components/Channel/ChannelVideoGrid.jsx'
 import ChannelPlaylists from './Components/Channel/ChannelPlaylists.jsx'
 import ChannelCommunity from './Components/Channel/ChannelCommunity.jsx'
 import Search from './Components/Search/Search.jsx'
-import ProfileSetup from './Components/ProfileSetup.jsx'
 import CompleteProfile from './Components/CompleteProfile.jsx'
 
 const router = createBrowserRouter([

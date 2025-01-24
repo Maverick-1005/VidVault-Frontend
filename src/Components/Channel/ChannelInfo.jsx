@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect , useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import {server} from "../../constant.js"
 
 function ChannelInfo() {
    const params = useParams()
@@ -11,7 +12,7 @@ function ChannelInfo() {
    
    const getChannelDetails = async() => {
     console.log("userID" , userId)
-    await axios.get(`http://localhost:8000/api/v1/users/${userId}` , {
+    await axios.get(`${server}/users/${userId}` , {
         withCredentials: true
     })
     .then((res) => {

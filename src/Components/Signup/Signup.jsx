@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
+import { server } from '../../constant.js';
 const Signup = () => {
   const [credentials, setCredentials] = useState({
     username: '',
@@ -49,7 +50,7 @@ const Signup = () => {
     if(coverImage){
       formData.append("coverImage", coverImage);
     }
-    axios.post("http://localhost:8000/api/v1/users/register" , formData , {
+    axios.post(`${server}/users/register` , formData , {
       withCredentials: true
     })
     .then((res) => {
@@ -67,7 +68,7 @@ const Signup = () => {
       console.log("Obj" ,authResult)
       if(authResult){
         console.log("Code" , authResult.code)
-        await axios.get(`http://localhost:8000/users/auth/google/?code=${authResult.code}`)
+        await axios.get(`${server}/users/auth/google/?code=${authResult.code}`)
         .then((res) => {
           console.log("res", res)
         })

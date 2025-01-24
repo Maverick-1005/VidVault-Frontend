@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import VideoCard from '../Video/VideoCard'
+import { server } from '../../constant.js'
 
 function ChannelVideoGrid() {
 
@@ -12,7 +13,7 @@ function ChannelVideoGrid() {
 
     const fetchChannelVideos = async () => {
 
-        axios.get('http://localhost:8000/api/v1/video/allVideos', {
+        axios.get(`${server}/video/allVideos`, {
             params: {
                 page: 1,
                 limit: 8,

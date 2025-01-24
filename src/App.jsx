@@ -9,12 +9,13 @@ import { useDispatch ,useSelector} from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import { server } from './constant.js'
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const checklogin = async()=> {
         try {
-          const response =  await axios.get('http://localhost:8000/api/v1/users/current-user', {
+          const response =  await axios.get(`${server}/users/current-user`, {
             withCredentials: true, 
           }) ;
           if (response){
@@ -26,7 +27,7 @@ function App() {
             dispatch(logout());
           }
         } catch (error) {
-          console.log(error);
+          console.log("yahn",error);
           navigate('/')
           dispatch(logout());
         }

@@ -2,6 +2,7 @@ import React, { useState , useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 import { getTimeDifference } from '../../utils/utilFunctions';
+import { server } from '../../constant.js';
 const VideoCard2 = ({ video, user , showdp=false}) => {
   const thumbnail = video.thumbnail
   const title = video.title
@@ -13,7 +14,7 @@ const VideoCard2 = ({ video, user , showdp=false}) => {
 
   if(!user){
     const request = () => {
-      axios.get(`http://localhost:8000/api/v1/users/${video.owner}` ,{
+      axios.get(`${server}/users/${video.owner}` ,{
         withCredentials: true,
       })
       .then((res) => {

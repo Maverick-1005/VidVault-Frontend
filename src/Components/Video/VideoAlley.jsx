@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import VideoCard2 from './VideoCard2';
 import axios from 'axios';
+import { server } from '../../constant.js';
 
 function VideoAlley({videoOwner , user , videoId = {videoId}}) {
 
   const [videos, setVideos] = useState([])  
   console.log("videoOwner = " , videoOwner)
   const fetchOwnersVideos = () => {
-      axios.get('http://localhost:8000/api/v1/video/allVideos' , {
+      axios.get(`${server}/video/allVideos` , {
         params: {
           page: 1,
           limit: 8,

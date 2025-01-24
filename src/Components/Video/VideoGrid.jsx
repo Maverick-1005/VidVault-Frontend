@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import VideoCard from './VideoCard'
 import axios from 'axios'
+import { server } from '../../constant.js';
 
 function VideoGrid() {
   const [videos , setVideos] = useState([]);
   const [page, setPage] = useState(1)
 
   const fetchVideos = () => {
-    axios.get('http://localhost:8000/api/v1/video/allVideos' , {
+    axios.get(`${server}/video/allVideos` , {
       params: {
         page: page,
         limit: 12,

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useRef , useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { server } from '../../constant.js'
 
 function CommentsHeader({ commentsCount=0, userAvatar , onCommentAdded }) {
       
@@ -29,7 +30,7 @@ function CommentsHeader({ commentsCount=0, userAvatar , onCommentAdded }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-       await axios.post(`http://localhost:8000/api/v1/comments/add-comment/${videoId}` , {
+       await axios.post(`${server}/comments/add-comment/${videoId}` , {
             text: comment
         } , {
             params: {

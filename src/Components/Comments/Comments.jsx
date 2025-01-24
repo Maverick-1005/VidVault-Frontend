@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CommentCard from './CommentCard.jsx'
 import CommentsHeader from './CommentsHeader.jsx'
 import { useParams } from 'react-router-dom'
+import { server } from '../../constant.js'
 function Comments({ currUser }) {
 
   const [comments, setComments] = useState([])
@@ -14,7 +15,7 @@ function Comments({ currUser }) {
 
 
   const fetchAllComments = async () => {
-    await axios.get('http://localhost:8000/api/v1/comments/allcomments', {
+    await axios.get(`${server}/comments/allcomments`, {
       params: {
         videoId: videoId,
         page: 1,
@@ -25,7 +26,7 @@ function Comments({ currUser }) {
 
         const allComments = res.data.data;
         const commentsWithUserData = allComments.map((item) => {
-          return axios.get(`http://localhost:8000/api/v1/users/${item.owner}`, {
+          return axios.get(`${server}/users/${item.owner}`, {
             withCredentials: true
           })
             .then((res) => {

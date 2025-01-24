@@ -5,11 +5,12 @@ import { logout , login } from "../../Redux/authSlice.js";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { server } from "../../constant.js";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  axios.get('http://localhost:8000/api/v1/users/current-user', {
+  axios.get(`${server}/users/current-user`, {
     withCredentials: true, 
   }) 
   .then((res) => {

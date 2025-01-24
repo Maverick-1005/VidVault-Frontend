@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {login } from '../../Redux/authSlice.js'
 import { store  } from '../../Redux/store.js';
 import { useGoogleLogin } from '@react-oauth/google';
-
+import { server } from '../../constant.js';
+import GoogleIcon from '@mui/icons-material/Google';
 
 
 const Login = () => {
@@ -36,7 +37,7 @@ const [open, setOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/v1/users/login', credentials, {
+    axios.post(`${server}/users/login`, credentials, {
       withCredentials: true, // This should be here
     })
     
@@ -59,7 +60,7 @@ const [open, setOpen] = useState(false);
       console.log("Obj" ,authResult)
       if(authResult){
         console.log("Code" , authResult.code)
-        await axios.get(`http://localhost:8000/api/v1/users/auth/google/?code=${authResult.code}` , {
+        await axios.get(`${server}/users/auth/google/?code=${authResult.code}` , {
           withCredentials: true
         })
         .then((res) => {
@@ -86,7 +87,9 @@ const [open, setOpen] = useState(false);
     {
       onSuccess: responseGoogle,
       onError: responseGoogle,
-      flow: 'auth-code'
+      flow: 'auth-code',
+      clientId: "416500417090-l3pidjc80j3cbrrbh4oqbi8s7fr9i587.apps.googleusercontent.com",
+      redirectUri: `${server}/users/auth/google`,
     }
   )
   return (
@@ -190,18 +193,7 @@ const [open, setOpen] = useState(false);
           </p>
         </div>
 
-        {/* App Download Section */}
-        <div className="text-center space-y-4">
-          <p className="text-gray-400">Get the app.</p>
-          <div className="flex justify-center space-x-4">
-            <a href="#" className="flex items-center">
-              <img src="/api/placeholder/120/40" alt="Download on App Store" className="h-10" />
-            </a>
-            <a href="#" className="flex items-center">
-              <img src="/api/placeholder/120/40" alt="Get it on Google Play" className="h-10" />
-            </a>
-          </div>
-        </div>
+       
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import Header from '../Header'
 import SideBar from '../SideBar'
 import { useParams, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
+import { server } from '../../constant.js'
 
 function Search() {
   const [searchParams] = useSearchParams()
@@ -16,7 +17,7 @@ function Search() {
 
   const fetchSearchedVideos = async() => {
     
-    await axios.get(`http://localhost:8000/api/v1/video/allVideos/?q=${encodedText}&page=1` , {
+    await axios.get(`${server}/video/allVideos/?q=${encodedText}&page=1` , {
         
     })
     .then((res) => {

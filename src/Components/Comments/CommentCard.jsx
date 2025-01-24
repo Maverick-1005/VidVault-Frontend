@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 import {Person} from "@mui/icons-material"
+import { server } from "../../constant.js";
 
 const CommentCard = ({ content, username, userAvatar, likeCount = 0, time, currUser, cmt, oncmmtChange}) => {
 
@@ -34,7 +35,7 @@ const CommentCard = ({ content, username, userAvatar, likeCount = 0, time, currU
 
 
   const handleDelete = async () => {
-    await axios.post(`http://localhost:8000/api/v1/comments/delete-comment/${cmt._id}`, {}, {
+    await axios.post(`${server}/comments/delete-comment/${cmt._id}`, {}, {
       withCredentials: true
     })
       .then((res) => {
@@ -46,7 +47,7 @@ const CommentCard = ({ content, username, userAvatar, likeCount = 0, time, currU
   }
 
   const handleCommentEdit = async () => {
-    await axios.post(`http://localhost:8000/api/v1/comments/update-comment/${cmt._id}`, {
+    await axios.post(`${server}/comments/update-comment/${cmt._id}`, {
       text: cmntContent
     }, {
       withCredentials: true

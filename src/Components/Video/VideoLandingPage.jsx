@@ -6,6 +6,7 @@ import SideBar from '../SideBar.jsx'
 import VideoPlayer from './VideoPlayer.jsx'
 import VideoAlley from './VideoAlley.jsx'
 import Comments from '../Comments/Comments.jsx'
+import { server } from '../../constant.js'
 function VideoLandingPage() {
 
       const [videoFile, setVideoFile] = useState({});
@@ -18,7 +19,7 @@ function VideoLandingPage() {
   
       const videoDetails = async () => {
           console.log("Video Id ANdar = ", videoId);
-          await axios.get(`http://localhost:8000/api/v1/video/v/${videoId}`, {
+          await axios.get(`${server}/video/v/${videoId}`, {
               withCredentials: true
           })
           .then((res) => {
@@ -36,7 +37,7 @@ function VideoLandingPage() {
           videoDetails();
       }, [videoId]);
       const getVideoOwner = () => {
-          axios.get(`http://localhost:8000/api/v1/users/${videoFile.owner}`, {
+          axios.get(`${server}/users/${videoFile.owner}`, {
               withCredentials: true
           })
           .then((res) => {
@@ -53,7 +54,7 @@ function VideoLandingPage() {
       }, [videoFile]);
   
       const getCurrUser = () => {
-          axios.get(`http://localhost:8000/api/v1/users/current-user`, {
+          axios.get(`${server}/users/current-user`, {
               withCredentials: true
           })
           .then((res) => {

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getTimeDifference } from "../../utils/utilFunctions";
+import { server } from "../../constant.js";
 const VideoCard = ({video , hidden= false}) => {
 
 
@@ -16,7 +17,7 @@ const VideoCard = ({video , hidden= false}) => {
     navigate(`/videos/${video._id}`);
   }
  const request = () => {
-  axios.get(`http://localhost:8000/api/v1/users/${id}` ,{
+  axios.get(`${server}/users/${id}` ,{
     withCredentials: true,
   })
   .then((res) => {

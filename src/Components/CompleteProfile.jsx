@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useSelector } from 'react-redux';
 import { ToastContainer , toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { server } from '../constant.js';
 
 
 const CompleteProfile = () => {
@@ -72,7 +73,7 @@ const CompleteProfile = () => {
     }
 
     if (!loginStatus) {
-      axios.post("http://localhost:8000/api/v1/users/register", formData, {
+      axios.post(`${server}/users/register`, formData, {
         withCredentials: true
       })
         .then((res) => {
@@ -92,7 +93,7 @@ const CompleteProfile = () => {
        console.log("formdata2 " , formData2)
 
 
-     await axios.patch("http://localhost:8000/api/v1/users/update-account", formData2, {
+     await axios.patch(`${server}/users/update-account`, formData2, {
         headers: {
           "Content-Type" : "application/json"
         },
@@ -108,7 +109,7 @@ const CompleteProfile = () => {
 
         if(avatar){
           formData2.append("avatar" , avatar)
-         await axios.patch("http://localhost:8000/api/v1/users/avatar", formData2, {
+         await axios.patch(`${server}/users/avatar`, formData2, {
             withCredentials: true
           })
             .then((res) => {
@@ -121,7 +122,7 @@ const CompleteProfile = () => {
         }
         if(coverImage){
           formData2.append("coverImage" , coverImage)
-          await axios.patch("http://localhost:8000/api/v1/users/coverImage", formData2, {
+          await axios.patch(`${server}/users/coverImage`, formData2, {
             withCredentials: true
           })
             .then((res) => {
@@ -133,7 +134,7 @@ const CompleteProfile = () => {
             })
         }
 
-        await axios.post('http://localhost:8000/api/v1/users/change-password' , {
+        await axios.post(`${server}/users/change-password` , {
           oldPassword: "",
           newPassword: credentials.password
         } ,{
@@ -167,7 +168,7 @@ const CompleteProfile = () => {
       console.log("Obj", authResult)
       if (authResult) {
         console.log("Code", authResult.code)
-        await axios.get(`http://localhost:8000/users/auth/google/?code=${authResult.code}`)
+        await axios.get(`${server}/users/auth/google/?code=${authResult.code}`)
           .then((res) => {
             console.log("res", res)
           })

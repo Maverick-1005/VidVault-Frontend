@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer , toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { server } from '../../constant.js';
 
 function Studio() {
 
@@ -42,7 +43,7 @@ function Studio() {
 
         setIsLoading(true)
         setTimeout(()=> {
-             axios.post("http://localhost:8000/api/v1/video/video-upload" , formData , {
+             axios.post(`${server}/video/video-upload` , formData , {
                 withCredentials: true,
             })
             .then((res) => {

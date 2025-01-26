@@ -41,7 +41,7 @@ function ChannelVideoGrid() {
             <div className=' mt-10 max-w-6xl '>
                 <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full ml-0 pl-0">
                     {videos.map((item) => (
-                        <div key={item._id} className="flex items-center justify-center mt-8 ">
+                        <div key={item._id}  className="flex items-center justify-center mt-8 ">
                             <VideoCard video={item} hidden={true} />
                         </div>
                     ))}

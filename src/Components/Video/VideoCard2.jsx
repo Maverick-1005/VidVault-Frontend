@@ -32,7 +32,7 @@ const VideoCard2 = ({ video, user , showdp=false}) => {
   const handleOnClick = () => {
     console.log("here" , video);
 
-    navigate(`/videos/${video._id}`)
+    navigate(`/videos/${user.username}/${video._id}`)
   }
   return (
     <div onClick={handleOnClick}  className={showdp? ' hover:cursor-pointer flex w-full mi  h-72 bg-black text-white rounded-lg overflow-hidden shadow-md':"bg-black hover:cursor-pointer flex  text-white rounded-lg overflow-hidden shadow-md"}>

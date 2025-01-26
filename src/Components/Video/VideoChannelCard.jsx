@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { server } from "../../constant.js"
 import axios from "axios";
 import { useSelector } from "react-redux";
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import {
   Button,
   Dialog,
@@ -98,7 +100,7 @@ console.log("ye aaya channel " , channel)
         {/* Subscribe Button */}
         {
           subscribed? <button onClick={()=>setIsUnsubDialog(true)} className="bg-gray-700 text-white font-semibold py-2 px-4 rounded-full hover:bg-gray-200">
-          Unsubscribe
+          Subscribed
         </button> : <button onClick={handleSubscribe} className="bg-white text-black font-semibold py-2 px-4 rounded-full hover:bg-gray-200">
           Subscribe
         </button>
@@ -122,11 +124,11 @@ console.log("ye aaya channel " , channel)
         {/* Like/Dislike */}
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-1">
-            <button className="text-xl">👍</button>
+            <button className="text-xl"><ThumbUpAltOutlinedIcon/></button>
             <span>{likeCount}</span>
           </div>
           <div className="w-px h-5 bg-gray-700"></div>
-          <button className="text-xl">👎</button>
+          <button className="text-xl"><ThumbDownOutlinedIcon/></button>
         </div>
         {/* Share Button */}
         <button className="text-gray-400 hover:text-white">Share</button>

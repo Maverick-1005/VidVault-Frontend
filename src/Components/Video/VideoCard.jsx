@@ -13,9 +13,7 @@ const VideoCard = ({video , hidden= false}) => {
   const id = video.owner
   const [user , setUser] = useState({})
 
-  const handleId = () => {
-    navigate(`/videos/${video._id}`);
-  }
+  
  const request = () => {
   axios.get(`${server}/users/${id}` ,{
     withCredentials: true,
@@ -44,7 +42,7 @@ const VideoCard = ({video , hidden= false}) => {
   
   // const duration = video.duration,
   return (
-    <div onClick={() => handleId()} className="cursor-pointer w-11/12 h-80 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
+    <div onClick={() => {navigate(`../videos/${username}/${video?._id}`)}} className="cursor-pointer w-11/12 h-80 bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
       {/* Thumbnail Section */}
       <div className="relative">
         <img src={thumbnail} alt="Video Thumbnail" className="w-full h-[200px] object-fill" />

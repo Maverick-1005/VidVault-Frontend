@@ -17,7 +17,7 @@ function Comments({ currUser }) {
 
   const fetchAllComments = async () => {
     setIsLoading(true)
-    await axios.get(`${server}/comment/allcomments`, {
+    await axios.get(`${server}/comments/allcomments`, {
       params: {
         videoId: videoId,
         page: 1,

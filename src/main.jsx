@@ -22,6 +22,7 @@ import CompleteProfile from './Components/CompleteProfile.jsx'
 import VideoGrid from './Components/Video/VideoGrid.jsx'
 import SubscribedChannels from './Components/Subscription/SubscribedChannels.jsx'
 import NotAvailable from './Components/NotAvailable.jsx'
+import LikedVideos from './Components/LikedVideos/LikedVideos.jsx'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             path: "feed/subscriptions",
             element: <SubscribedChannels />
           },
+          {
+            path: "liked",
+            element: <LikedVideos/>
+          },
 
         ]
       },
@@ -92,7 +97,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotAvailable/>
+        element: <NotAvailable text={"Sorry Not Available...."}/>
       }
     ]
   }

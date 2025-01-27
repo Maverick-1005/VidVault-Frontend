@@ -1,10 +1,11 @@
-import React, { useEffect , useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { server } from "../../constant.js"
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import {
   Button,
   Dialog,
@@ -15,33 +16,53 @@ import {
 } from "@mui/material";
 import { Box } from "lucide-react";
 
-const VideoChannelCard = ({ channelName, channelAvatar, channel, likeCount = "0" }) => {
+const VideoChannelCard = ({ channelName, channelAvatar, channel, video}) => {
 
+  // console.log("Likes is ", likesCount)
+
+  // console.log("isLiked ", liked)
+
+  const params = useParams()
+  const videoId = params.videoId
 
   const [loadingChannel, setLoadingChannel] = useState(true)
+  const [loadingVideo, setLoadingVideo] = useState(true)
 
   const [isUnsubDialog, setIsUnsubDialog] = useState(false)
 
   const [loadingCurrUser, setLoadingCurrUser] = useState(true)
   const currUser = useSelector((state) => (state.auth.userData))
 
- const [subscribed , setSubscribed] = useState(channel?.isSubscribed || false)
+  const [subscribed, setSubscribed] = useState(channel?.isSubscribed || false)
+  const [isLiked, setIsLiked] = useState(video?.isLiked || false)
 
- useEffect(() => {
-  if(channel) {
-    setSubscribed(channel.isSubscribed)
-    setLoadingChannel(false)
-  }
-} , [channel]  )
-console.log("ye aaya channel " , channel)
+
+  useEffect(() => {
+    if (channel) {
+      setSubscribed(channel.isSubscribed)
+      setLoadingChannel(false)
+    }
+  }, [channel])
+  console.log("ye aaya channel ", channel)
+
+
+  useEffect(() => {
+    if (video) {
+      setIsLiked(video.isLiked)
+      setLoadingVideo(false)
+    }
+  }, [video])
+  console.log("ye aaya video ", video)
 
   useEffect(() => {
     if (currUser) setLoadingCurrUser(false)
   }, [currUser])
 
+
+
   const handleSubscribe = () => {
 
-    if(!subscribed){
+    if (!subscribed) {
       axios.get(`${server}/subs/subsribe/${channel._id}`, {
         withCredentials: true
       })
@@ -53,7 +74,7 @@ console.log("ye aaya channel " , channel)
           console.log("err while subscribing ", err)
         })
     }
-    else{
+    else {
       setIsUnsubDialog(true)
       axios.get(`${server}/subs/unsubsribe/${channel._id}`, {
         withCredentials: true
@@ -64,17 +85,34 @@ console.log("ye aaya channel " , channel)
         })
         .catch((err) => {
           console.log("err while unsubscribing ", err)
-        }).finally( ()=>{
+        }).finally(() => {
           setIsUnsubDialog(false)
         })
     }
-     
+
+  }
+
+  const handleLike = async () => {
+    setIsLiked(!isLiked)
+
+    await axios.post(`${server}/likes/video/${videoId}` , {
+      isLiked: isLiked
+    } , {
+      withCredentials: true
+    })
+    .then((res) => {
+      console.log(`liked: ${!isLiked}` , res)
+    })
+    .catch((err) => {
+      console.log("err ",err)
+    })
+
 
   }
 
   const navigate = useNavigate()
-  if (loadingCurrUser) return <>Loading...</>
-  else if(loadingChannel) return <>Loading...</>
+  if (loadingCurrUser || loadingVideo ) return <>Loading...</>
+  else if (loadingChannel) return <>Loading...</>
   else return (
     <div className="flex items-center justify-between bg-black text-white p-4  shadow-md">
       {/* Left Section: Channel Info */}
@@ -99,36 +137,36 @@ console.log("ye aaya channel " , channel)
       <div className="flex items-center space-x-4">
         {/* Subscribe Button */}
         {
-          subscribed? <button onClick={()=>setIsUnsubDialog(true)} className="bg-gray-700 text-white font-semibold py-2 px-4 rounded-full hover:bg-gray-200">
-          Subscribed
-        </button> : <button onClick={handleSubscribe} className="bg-white text-black font-semibold py-2 px-4 rounded-full hover:bg-gray-200">
-          Subscribe
-        </button>
+          subscribed ? <button onClick={() => setIsUnsubDialog(true)} className="bg-gray-700 text-white font-semibold py-2 px-4 rounded-full hover:bg-gray-200">
+            Subscribed
+          </button> : <button onClick={handleSubscribe} className="bg-white text-black font-semibold py-2 px-4 rounded-full hover:bg-gray-200">
+            Subscribe
+          </button>
         }
-        <Dialog open={isUnsubDialog}  onClose={()=>setIsUnsubDialog(false)}>
-        <DialogTitle>{"Are you sure?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to unsubscribe? You will no longer receive updates from this channel.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button  color="secondary" onClick={()=>setIsUnsubDialog(false)}>
-            Cancel
-          </Button>
-          <Button  color="error" onClick={handleSubscribe}>
-            Unsubscribe
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog open={isUnsubDialog} onClose={() => setIsUnsubDialog(false)}>
+          <DialogTitle>{"Are you sure?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to unsubscribe? You will no longer receive updates from this channel.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button color="secondary" onClick={() => setIsUnsubDialog(false)}>
+              Cancel
+            </Button>
+            <Button color="error" onClick={handleSubscribe}>
+              Unsubscribe
+            </Button>
+          </DialogActions>
+        </Dialog>
         {/* Like/Dislike */}
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-1">
-            <button className="text-xl"><ThumbUpAltOutlinedIcon/></button>
-            <span>{likeCount}</span>
+            <button onClick={handleLike} className="text-xl">{isLiked ? <ThumbUpIcon/> : <ThumbUpAltOutlinedIcon/>}</button>
+            <span>{video?.likesCount}</span>
           </div>
           <div className="w-px h-5 bg-gray-700"></div>
-          <button className="text-xl"><ThumbDownOutlinedIcon/></button>
+          <button className="text-xl"><ThumbDownOutlinedIcon /></button>
         </div>
         {/* Share Button */}
         <button className="text-gray-400 hover:text-white">Share</button>

@@ -83,7 +83,7 @@ const SubscribedChannelsCard = ({ channel }) => {
                             <div className='flex'>
                                 <p className="text-sm text-gray-400">@{channel.username}</p>
                                 <p className="text-sm text-gray-400 ml-1">•</p>
-                                <p className="text-sm text-gray-400 ml-1">{channel.subscribersCount}subscribers</p>
+                                <p className="text-sm text-gray-400 ml-1">{channel.subscribersCount} subscribers</p>
                             </div>
                         </div>
 

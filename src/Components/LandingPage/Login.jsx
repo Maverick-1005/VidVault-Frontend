@@ -9,6 +9,7 @@ import { store  } from '../../Redux/store.js';
 import { useGoogleLogin } from '@react-oauth/google';
 import { server } from '../../constant.js';
 import GoogleIcon from '@mui/icons-material/Google';
+import { CircularProgress, LinearProgress } from '@mui/material';
 
 
 const Login = () => {
@@ -24,6 +25,7 @@ const [open, setOpen] = useState(false);
     email: ''
   });
   
+  const [isLoading, setIsLoading] = useState(false)
       // const {status} = useSelector((state) => state.auth);
 
 
@@ -36,6 +38,7 @@ const [open, setOpen] = useState(false);
   };
 
   const handleSubmit = (e) => {
+    setIsLoading(true)
     e.preventDefault();
     axios.post(`${server}/users/login`, credentials, {
       withCredentials: true, // This should be here
@@ -43,12 +46,14 @@ const [open, setOpen] = useState(false);
     
     .then((res) => {
        setOpen(true)
+       setIsLoading(false)
        dispatch(login(res.data.data))
       //  console.log("Login status = ", status)
        navigate('/home');
     })
     .catch((err) => {
        console.log(err);
+       setIsLoading(false)
        setMessage(err.message)
        setOpen(true)
     })
@@ -95,6 +100,8 @@ const [open, setOpen] = useState(false);
   return (
     <>
       <div className="max-w-md w-full space-y-8">
+
+        {isLoading ? <><LinearProgress/></>: <></>}
         {/* Logo and Title */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white mb-2">VidVault</h1>

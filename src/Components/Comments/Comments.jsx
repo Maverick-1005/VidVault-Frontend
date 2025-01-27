@@ -4,6 +4,7 @@ import CommentCard from './CommentCard.jsx'
 import CommentsHeader from './CommentsHeader.jsx'
 import { useParams } from 'react-router-dom'
 import { server } from '../../constant.js'
+import { CircularProgress } from '@mui/material'
 function Comments({ currUser }) {
 
   const [comments, setComments] = useState([])
@@ -11,11 +12,12 @@ function Comments({ currUser }) {
 
   const params = useParams()
   const videoId = params.videoId
-
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const fetchAllComments = async () => {
-    await axios.get(`${server}/comments/allcomments`, {
+    setIsLoading(true)
+    await axios.get(`${server}/comment/allcomments`, {
       params: {
         videoId: videoId,
         page: 1,
@@ -42,6 +44,7 @@ function Comments({ currUser }) {
           .then((commentsWithUsers) => {
             console.log('Comments with user data:', commentsWithUsers);
             setComments(commentsWithUsers);
+            setIsLoading(false)
           })
           .catch((err) => {
             console.error('Error resolving user data promises:', err);
@@ -64,7 +67,11 @@ function Comments({ currUser }) {
   };
 
 
-
+  if(isLoading) return (
+    <div className='flex justify-center items-center md:mr-72'>
+      <CircularProgress/>
+    </div>
+  )
   return (
     <div className='m-2 max-w-5xl'>
       <CommentsHeader userAvatar={currUser.avatar} commentsCount={comments.length} onCommentAdded={handleOnCommentsChange} />

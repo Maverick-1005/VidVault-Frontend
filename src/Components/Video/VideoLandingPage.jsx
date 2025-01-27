@@ -30,7 +30,7 @@ function VideoLandingPage() {
 
     const videoDetails = async () => {
         console.log("Video Id ANdar = ", videoId);
-        await axios.get(`${server}/video/v/${videoId}`, {
+        await axios.get(`${server}/video/details/${videoId}`, {
             withCredentials: true
         })
             .then((res) => {
@@ -93,7 +93,7 @@ function VideoLandingPage() {
                 <div>
                     <div className='grid grid-cols-1 lg:grid-cols-[auto,minmax(0,1fr),auto] gap-0'>
                         <SideBar myprop={true} />
-                        < VideoPlayer videoId={videoId} videoFile={videoFile} user={user} currUser={currUser} />
+                        < VideoPlayer videoId={videoId} video={videoFile} user={user} currUser={currUser} />
                         <VideoAlley videoOwner={videoFile.owner} user={user} videoId={videoId} />
                     </div>
                     <Comments currUser={currUser} />

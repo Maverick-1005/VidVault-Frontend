@@ -15,10 +15,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const mainMenuItems = [
-  { icon: Home, label: 'Home', path: '/' },
+  { icon: Home, label: 'Home', path: '/home' },
   { icon: Video, label: 'My Content', path: '/content' },
   { icon: History, label: 'History', path: '/history' },
-  { icon: ThumbsUp, label: 'Liked Videos', path: '/liked' },
+  { icon: ThumbsUp, label: 'Liked Videos', path: '/home/liked' },
   { icon: FolderOpen, label: 'Collections', path: '/collections' },
   { icon: Users, label: 'Subscriptions', path: '/home/feed/subscriptions' },
 ];

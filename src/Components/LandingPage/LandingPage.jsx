@@ -23,14 +23,25 @@ const LandingPage = () => {
   
   
     return (
-        <div className="h-screen w-screen p-0rem m-0 bg-black flex items-center justify-center">
+        <div className=" w-screen p-0rem m-0 bg-black flex items-center justify-center">
+
             <div className=" grid grid-cols-2 gap-72">
-            <div className="h-screen w-screen p-0 m-0 bg-black flex items-center justify-center">
+
+
+
+            <div className="h-screen w-screen p-0 m-0  bg-black hidden sm:flex items-center justify-center">
+
   <div className="grid grid-cols-2 gap-72">
+
+
     <div className="flex justify-center items-center h-screen bg-black">
+
+
       <div className="text-center text-white font-bold text-[6rem] leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
         {["WELCOME", "TO", "VIDVAULT"].map((word, wordIndex) => (
           <div key={wordIndex} className="mb-10">
+
+
             {Array.from(word).map((letter, letterIndex) => (
               <span
                 key={letterIndex}
@@ -43,15 +54,20 @@ const LandingPage = () => {
                 {letter}
               </span>
             ))}
+
           </div>
         ))}
       </div>
+
+
     </div>
+
+
   </div>
 </div>
 
 
-                <div className="mt-16"><Login /></div>
+                <div className="mt-16 ml-5 sm:mt-16 sm:mr-16"><Login /></div>
 
             </div>
 

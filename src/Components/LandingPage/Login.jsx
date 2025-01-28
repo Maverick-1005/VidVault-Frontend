@@ -99,7 +99,7 @@ const [open, setOpen] = useState(false);
   )
   return (
     <>
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md min-w-96 w-full space-y-8">
 
         {isLoading ? <><LinearProgress/></>: <></>}
         {/* Logo and Title */}
@@ -109,7 +109,7 @@ const [open, setOpen] = useState(false);
         </div>
 
         {/* Login Form */}
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
+        <div className="bg-gray-900 p-8 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-300">

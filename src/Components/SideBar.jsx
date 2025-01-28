@@ -124,7 +124,7 @@ const Sidebar = ({ myprop = false }) => {
       <div className={`${myprop ? '' : 'md:hidden'} `}>
         <button
           onClick={toggleMobileSidebar}
-          className="bg-gray-800 p-2 text-white fixed top-3 left-4 rounded-full z-50"
+          className="bg-gray-800 p-2 text-white fixed  top-2 left-2 rounded-full z-10"
         >
           {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>

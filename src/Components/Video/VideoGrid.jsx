@@ -38,8 +38,8 @@ function VideoGrid() {
    
   )
   return (
-    <div>
-   <div className="bg-black grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full ml-0 pl-0">
+    <div className=''>
+   <div className=" grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 ml-0 pl-0">
   {videos.map((item) => (
     <div key={item._id} className="flex items-center justify-center mt-8 ">
       <VideoCard video={item} />

@@ -10,6 +10,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { server } from '../../constant.js';
 import GoogleIcon from '@mui/icons-material/Google';
 import { CircularProgress, LinearProgress } from '@mui/material';
+import { ToastContainer , toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Login = () => {
@@ -48,19 +51,27 @@ const [open, setOpen] = useState(false);
        setOpen(true)
        setIsLoading(false)
        dispatch(login(res.data.data))
+       toast.success('Logged in Successfully', {
+        position: 'top-right', 
+      });
+      setTimeout(() => {
+        navigate('/home');
+      }, 2000)
       //  console.log("Login status = ", status)
-       navigate('/home');
     })
     .catch((err) => {
        console.log(err);
        setIsLoading(false)
-       setMessage(err.message)
+       toast.error('LogIn failed', {
+        position: 'top-right', 
+      });
        setOpen(true)
     })
     console.log('Login attempted with:',credentials);
   };
 
   const responseGoogle = async (authResult) => {
+    setIsLoading(true)
     try {
       console.log("Obj" ,authResult)
       if(authResult){
@@ -71,16 +82,29 @@ const [open, setOpen] = useState(false);
         .then((res) => {
           console.log("res via login", res)
           dispatch(login(res.data?.data))
+          toast.success('Logged in Successfully', {
+                    position: 'top-right', 
+                  });
+                  setTimeout(() => {
+                    if(res.data.data?.accessToken){
+                      navigate('../home')
+                    }
+                    else{
+                      
+                      setIsLoading(false)
+                      console.log("pro")
+                      navigate('../profile-setup')
+                    }
+                  }, 2000)
 
-          if(res.data.data?.accessToken){
-            navigate('../home')
-          }
-          else{
-            console.log("pro")
-            navigate('../profile-setup')
-          }
+          
         })
         .catch((err) => {
+          setIsLoading(false)
+          toast.error('Google LogIn failed', {
+            position: 'top-right', 
+          });
+         
           console.log("err while signup with google " , err)
         })
       }
@@ -93,12 +117,11 @@ const [open, setOpen] = useState(false);
       onSuccess: responseGoogle,
       onError: responseGoogle,
       flow: 'auth-code',
-      // clientId: "416500417090-l3pidjc80j3cbrrbh4oqbi8s7fr9i587.apps.googleusercontent.com",
-      // redirectUri: `${server}/users/auth/google`,
     }
   )
   return (
     <>
+       <ToastContainer />
       <div className="max-w-md min-w-96 w-full space-y-8">
 
         {isLoading ? <><LinearProgress/></>: <></>}

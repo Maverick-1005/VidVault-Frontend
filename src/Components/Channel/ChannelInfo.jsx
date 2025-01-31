@@ -95,33 +95,33 @@ function ChannelInfo() {
                     {channel.coverImage == "" ? <div className='bg-black h-80 max-h-80 w-full max-w-7xl min-w-full'></div> : <img src={channel.coverImage} className='max-h-80 w-full max-w-7xl min-w-full' />}
 
                 </div>
-                <div className={'absolute left-44 top-2/3 sm:left-56 min-w-36 min-h-36'}>
-                    <img src={channel.avatar} className='h-48 w-48 rounded-full min-w-36 min-h-36' />
+                <div className={'absolute left-32 top-2/3 sm:left-56 min-w-36 min-h-36'}>
+                    <img src={channel.avatar} className='h-24 w-24 sm:h-48 sm:w-48 rounded-full min-w-36 min-h-36' />
                 </div>
             </div>
 
             <div className='relative min-w-96'>
 
                 <div className='mt-24 flex'>
-                    <h1 className='text-white font-extrabold text-6xl ml-48 sm:ml-60 '>{channel.fullName}</h1>
+                    <h1 className='text-white font-extrabold text-6xl ml-32 sm:ml-60 '>{channel.fullName}</h1>
                 </div>
 
 
-                <div className='b flex'>
-                    <p className='text-white ml-48 sm:ml-60 '>@{channel.username} • {channel.subscribersCount} subscribers • 10 videos </p>
+                <div className=' flex'>
+                    <p className='text-white ml-24 sm:ml-60 '>@{channel.username} • {channel.subscribersCount} subscribers • 10 videos </p>
                 </div>
                 <div className=' flex'>
-                    <p className='text-white ml-48 sm:ml-60'>{channel.bio}...</p>
+                    <p className='text-white ml-24 sm:ml-60'>{channel.bio}...</p>
                 </div>
                 {
                     subscribed ?
                         <div onClick={() => {
                             setIsUnsubDialog(true)
-                        }} className=' max-w-40 ml-48 mt-2  sm:absolute sm:top-10  sm:right-40 bg-gray-600 rounded-3xl p-3'>
+                        }} className=' max-w-40 ml-36 mt-2  sm:absolute sm:top-10  inline-block sm:right-40 bg-gray-600 rounded-3xl p-3'>
                             <button className=' text-white font-bold'>Subscribed</button>
                         </div>
                         :
-                        <div onClick={handleSubscribe} className=' max-w-40 ml-48 mt-2  sm:absolute sm:top-10  sm:right-40 bg-white rounded-3xl p-3'>
+                        <div onClick={handleSubscribe} className=' max-w-40 ml-36 mt-2 inline-block  sm:absolute sm:top-10  sm:right-40 bg-white rounded-3xl p-3'>
                             <button className=' text-black font-bold'>Subscribe</button>
                         </div>
                 }
@@ -145,8 +145,8 @@ function ChannelInfo() {
             </Dialog>
 
 
-            <div className=' text-white mt-5'>
-                <nav className='ml-36'>
+            <div className=' text-white mt-5 '>
+                <nav className='ml-20 sm:ml-36'>
                     <ul className='flex gap-14 border-b-2  border-b-slate-200'>
                         <li className='font-bold hover:cursor-pointer' onClick={(e) => {
                             navigate(`/channel/${username}/${userId}/videos`)

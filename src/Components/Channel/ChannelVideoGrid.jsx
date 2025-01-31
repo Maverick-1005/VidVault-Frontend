@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import VideoCard from '../Video/VideoCard'
 import { server } from '../../constant.js'
+import PlaylistsCard from '../Playlists/PlaylistsCard.jsx'
 
 function ChannelVideoGrid() {
 
@@ -36,21 +37,32 @@ function ChannelVideoGrid() {
     }, [userId])
 
     return (
-        <div className='text-white'>
-            <div className='flex justify-center'>
-            <div className=' mt-10 max-w-6xl '>
-                <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full ml-0 pl-0">
-                    {videos.map((item) => (
-                        <div key={item._id}  className="flex items-center justify-center mt-8 ">
-                            <VideoCard video={item} hidden={true} />
-                        </div>
-                    ))}
-                </div>
-            </div>
-            </div>
+       
+            // <div className='flex justify-center bg-yellow-200'>
+           
+            //     <div className=" flex flex-wrap bg-slate-600">
+            //         {videos.map((item) => (
+                       
+            //                 <VideoCard video={item} hidden={true} />
+                        
+            //         ))}
+            //     </div>
+            // </div>
+            <div className='text=white w-screen p-5'>
+
+      <div className='flex flex-wrap gap-3 ml-16  pl-5 '>
+          {
+            videos.map((item) => (
+                <VideoCard video={item} hidden={true}/>
+            ))
+          }
+      </div>
+
+    </div>
+          
             
 
-        </div>
+      
     )
 }
 

@@ -23,6 +23,7 @@ import VideoGrid from './Components/Video/VideoGrid.jsx'
 import SubscribedChannels from './Components/Subscription/SubscribedChannels.jsx'
 import NotAvailable from './Components/NotAvailable.jsx'
 import LikedVideos from './Components/LikedVideos/LikedVideos.jsx'
+import PlaylistsLandingPage from './Components/Playlists/PlaylistsLandingPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             path: "liked",
             element: <LikedVideos/>
           },
+          {
+            path: "playlist/:playlistId",
+            element: <PlaylistsLandingPage/>
+          },
 
         ]
       },
@@ -95,9 +100,10 @@ const router = createBrowserRouter([
         path: "/search/results",
         element: <Search />
       },
+      
       {
         path: "*",
-        element: <NotAvailable text={"Sorry Not Available...."}/>
+        element: <NotAvailable text={"Not Available...."}/>
       }
     ]
   }

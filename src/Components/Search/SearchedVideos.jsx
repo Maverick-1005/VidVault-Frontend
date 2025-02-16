@@ -8,7 +8,7 @@ function SearchedVideos({videos}) {
       <div>
       {videos.map((item) => (
     <div key={item._id} className="flex items-center justify-center mt-8 ">
-      <VideoCard2 video={item} showdp={true}/>
+      <VideoCard2 video={item} isSearch={true}/>
     </div>
   ))}
       </div>

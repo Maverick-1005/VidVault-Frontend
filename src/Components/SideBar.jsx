@@ -44,15 +44,18 @@ const MenuItemComponent = ({ icon: Icon, path, label, isCollapsed, isActive, onC
 );
 
 const Sidebar = ({ myprop = false }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  // const [isCollapsed, setIsCollapsed] = useState(false);
+  const isCollapsed = useSelector((state) => (state.sideBar.status))
+
+
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
   const loginStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate(); // Ensure it's used inside the component.
 
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  // const toggleSidebar = () => {
+  //   setIsCollapsed(!isCollapsed);
+  // };
 
   const toggleMobileSidebar = () => {
     setIsMobileOpen(!isMobileOpen);
@@ -65,27 +68,22 @@ const Sidebar = ({ myprop = false }) => {
   };
   
 
-  if (!loginStatus) {
-    return <div className="bg-white">Login</div>;
-  }
+  // if (!loginStatus) {
+  //   return <div className="bg-white">Login</div>;
+  // }
 
   return (
     <>
       {/* Sidebar for larger screens */}
       <div
         className={`
+          z-50
           hidden ${myprop ? '' : 'md:flex flex-col h-screen bg-black transition-all duration-300'}
           ${isCollapsed ? 'w-16' : 'w-64'} 
         `}
       >
         {/* Collapse Toggle Button */}
-        <button
-          onClick={toggleSidebar}
-          className="relative z-1000 -right-3 w-7 -top-10 bg-gray-800 p-1 rounded-full"
-        >
-          <Menu size={20} className="text-gray-300" />
-        </button>
-
+       
         {/* Main Navigation */}
         <div className="flex flex-col h-full">
           {/* Main Menu Items */}
@@ -130,7 +128,7 @@ const Sidebar = ({ myprop = false }) => {
         </button>
 
         {isMobileOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-90 z-40 flex flex-col w-64">
+          <div className=" fixed inset-0 bg-black bg-opacity-90 z-10 flex flex-col w-64">
             <div className="flex-1 px-4">
               {mainMenuItems.map((item) => (
                 <MenuItemComponent

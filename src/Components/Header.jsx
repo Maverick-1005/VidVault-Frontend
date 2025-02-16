@@ -10,6 +10,11 @@ import { SearchIcon } from 'lucide-react';
 import AddIcon from '@mui/icons-material/Add';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MicIcon from '@mui/icons-material/Mic';
+import { Menu } from '@mui/material';
+import { MenuOpenOutlined, MenuOutlined } from '@mui/icons-material';
+import { toggleSideBar } from '../Redux/sideBarSlice.js';
+
+
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -85,16 +90,29 @@ const Header = () => {
 
   }
 
+  // Load sidebar state from sessionStorage (default to true if not set)
+  const [isOpen, setIsOpen] = useState(
+    () => JSON.parse(sessionStorage.getItem("sidebarOpen")) ?? true
+  );
 
+  // Update sessionStorage whenever isOpen changes
+  useEffect(() => {
+    sessionStorage.setItem("sidebarOpen", JSON.stringify(isOpen));
+    dispatch(toggleSideBar())
+  }, [isOpen]);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen)
+  }
 
 
   return (
     <>
+
       <ToastContainer />
     
       
-
-      <header className={`bg-black relative  py-2 w-screen overflow-hidden flex items-center justify-between ${isSearchOpen ?'' :''}`}>
+      <header className={`bg-black  relative  py-2 w-screen overflow-hidden flex items-center justify-between ${isSearchOpen ?'' :''}`}>
 
       {
        
@@ -128,7 +146,12 @@ const Header = () => {
 
         {/* Left Section */}
         <div className="flex items-center">
-          {/* <button onClick={handleClick} className='text-white>  ===</button> */}
+               
+          <button
+            onClick={toggleSidebar}
+            className="text-white text-xl ml-5 font-bold">
+            <MenuOutlined/>
+          </button>
           <button
             onClick={(e) => {
               navigate('/home')
@@ -186,6 +209,8 @@ const Header = () => {
           </button>
         </div>
       </header>
+
+
     </>
   );
 };

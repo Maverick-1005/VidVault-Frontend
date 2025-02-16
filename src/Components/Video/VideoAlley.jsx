@@ -30,7 +30,7 @@ function VideoAlley({videoOwner , user , videoId = {videoId}}) {
   }, [videoOwner , videoId])
   
   return (
-    <div className=' w-full lg:max-w-96 p-4 rounded-md'>
+    <div className=' w-full  lg:max-w-96  rounded-md'>
      
      {
       videos.map((item) => {
@@ -40,6 +40,7 @@ function VideoAlley({videoOwner , user , videoId = {videoId}}) {
             <VideoCard2
             video = {item}
             user={user}
+            isAlley={true}
           />
             </div>
           

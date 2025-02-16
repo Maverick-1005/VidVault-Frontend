@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import {login } from '../../Redux/authSlice.js'
 import { store  } from '../../Redux/store.js';
@@ -206,11 +204,7 @@ const [open, setOpen] = useState(false);
             </div>
           </form>
 
-          <Snackbar className=" bg-white"open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert className="text-white" severity="error" sx={{ width: '100%' }}>
-          {message}
-        </Alert>
-      </Snackbar>
+       
         </div>
 
         {/* Sign Up Section */}

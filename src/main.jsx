@@ -66,6 +66,10 @@ const router = createBrowserRouter([
             path: "liked",
             element: <LikedVideos/>
           },
+          // {
+          //   path: "collections",
+          //   element: <Collections/>
+          // },
           {
             path: "playlist/:playlistId",
             element: <PlaylistsLandingPage/>
